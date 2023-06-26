@@ -1,0 +1,23 @@
+.footer {
+  background-color: $grey-color;
+
+  &__block {
+    @include flex-all-sb;
+    padding: 20px 0;
+  }
+
+  &-social {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      @include mb(20px)
+    }
+  }
+}
