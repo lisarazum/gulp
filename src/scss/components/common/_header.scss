@@ -1,9 +1,7 @@
+@import "./burger";
+
 .header {
   background-color: $grey-color;
-
-  &__block {
-    @include flex-all-sb;
-  }
 
   &__logo {
     max-height: 80px;
@@ -38,15 +36,6 @@
 
       @include mobile {
         flex-direction: column;
-      }
-    }
-
-    &__item {
-      @include mr(20px);
-
-      @include mobile {
-        @include mr(0);
-        @include mb(20px);
       }
     }
   }

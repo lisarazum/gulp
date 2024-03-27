@@ -32,6 +32,7 @@ const plumber = require('gulp-plumber');
 const path = require('path');
 const zip = require('gulp-zip');
 const rootFolder = path.basename(path.resolve());
+const glob = require('glob');
 
 // paths
 const srcFolder = './src';
@@ -44,6 +45,7 @@ const paths = {
   buildCssFolder: `${buildFolder}/css`,
   srcFullJs: `${srcFolder}/js/**/*.js`,
   srcMainJs: `${srcFolder}/js/main.js`,
+  srcPagesJs: `${srcFolder}/js/*.js`,
   buildJsFolder: `${buildFolder}/js`,
   srcPartialsFolder: `${srcFolder}/partials`,
   resourcesFolder: `${srcFolder}/resources`,
@@ -129,9 +131,17 @@ const stylesBackend = () => {
     .pipe(browserSync.stream());
 };
 
-// scripts
 const scripts = () => {
-  return src(paths.srcMainJs)
+
+  const entryFiles = glob.sync('./src/js/*.js', { posix: true, dotRelative: true });
+  const entries = {};
+
+  entryFiles.forEach(entryFile => {
+    const fileName = path.basename(entryFile, '.js');
+    entries[fileName] = entryFile;
+  });
+
+  return src(paths.srcPagesJs)
     .pipe(plumber(
       notify.onError({
         title: "JS",
@@ -140,8 +150,9 @@ const scripts = () => {
     ))
     .pipe(webpackStream({
       mode: isProd ? 'production' : 'development',
+      entry: entries,
       output: {
-        filename: 'main.js',
+        filename: '[name].js',
       },
       module: {
         rules: [{
@@ -215,7 +226,7 @@ const resources = () => {
 }
 
 const images = () => {
-  return src([`${paths.srcImgFolder}/**/**.{jpg,jpeg,png,svg}`])
+  return src([`${paths.srcImgFolder}/**/**.{jpg,jpeg,png,svg,gif}`])
     .pipe(gulpif(isProd, image([
       image.mozjpeg({
         quality: 80,

@@ -2,7 +2,6 @@
   background-color: $grey-color;
 
   &__block {
-    @include flex-all-sb;
     padding: 20px 0;
   }
 
@@ -15,9 +14,5 @@
   &-info {
     display: flex;
     flex-direction: column;
-
-    &__item {
-      @include mb(20px)
-    }
   }
 }

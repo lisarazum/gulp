@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="ru" class="page">
+<html lang="ru">
 
-@include('partials/page-blocks/head.html')
+@include('partials/common/head.html', {
+  'title': 'Главная Страница',
+  'style': 'main',
+  'script': 'main',
+})
 
-<body class="page__body">
-    @include('partials/page-blocks/header.html')
-    <main class="main">
-      @include('partials/hero.html')
-      <picture>
-        <source srcset="./img/img.webp" type="image/webp">
-        <img loading="lazy" src="./img/img.png" class="image" width="300" height="300" alt="картинка">
-      </picture>
-    </main>
-    @include('partials/page-blocks/footer.html')
-    <div class="overlay" data-menu-overlay></div>
+<body>
+  @include('partials/common/header.html')
+  <main class="main">
+    @include('partials/hero.html')
+    <picture>
+      <source srcset="./img/img.webp" type="image/webp">
+      <img loading="lazy" src="./img/img.png" class="image" width="300" height="300" alt="картинка">
+    </picture>
+  </main>
+  @include('partials/common/footer.html')
+  <div class="overlay" data-menu-overlay></div>
 </body>
 
 </html>

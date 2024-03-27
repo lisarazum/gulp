@@ -1,1 +1,0 @@
-import './components/swiper-hero.js';
